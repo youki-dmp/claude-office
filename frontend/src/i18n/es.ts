@@ -118,6 +118,10 @@ const es: Record<TranslationKey, string> = {
   "sidebar.events": "Eventos",
   "sidebar.conversation": "Conversación",
 
+  // Completed Agents Shelf
+  "completedShelf.title": "Completados",
+  "completedShelf.dismissHint": "Clic para descartar",
+
   // Event Log
   "eventLog.title": "Registro de Eventos",
   "eventLog.events": "eventos",

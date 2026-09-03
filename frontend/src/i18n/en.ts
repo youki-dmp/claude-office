@@ -116,6 +116,10 @@ const en = {
   "sidebar.events": "Events",
   "sidebar.conversation": "Conversation",
 
+  // Completed Agents Shelf
+  "completedShelf.title": "Completed",
+  "completedShelf.dismissHint": "Click to dismiss",
+
   // Event Log
   "eventLog.title": "Event Log",
   "eventLog.events": "events",

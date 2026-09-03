@@ -13,9 +13,9 @@
   ],
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev --turbo -p 3971",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3971",
     "lint": "eslint . --ext .ts,.tsx --max-warnings=0",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

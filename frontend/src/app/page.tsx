@@ -48,6 +48,7 @@ import { TourOverlay } from "@/components/tour/TourOverlay";
 import CommandBar from "@/components/attention/CommandBar";
 import AttentionToasts from "@/components/attention/AttentionToasts";
 import AgentPopup from "@/components/attention/AgentPopup";
+import { CompletedAgentsShelf } from "@/components/layout/CompletedAgentsShelf";
 import { useAttentionStore } from "@/stores/attentionStore";
 import { usePreferencesStore } from "@/stores/preferencesStore";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -562,6 +563,7 @@ export default function V2TestPage(): React.ReactNode {
       <CommandBar />
       <AttentionToasts />
       <AgentPopup />
+      <CompletedAgentsShelf />
 
       {/* ----------------------------------------------------------------
           Tour Overlay

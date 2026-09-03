@@ -118,6 +118,10 @@ const ptBR: Record<TranslationKey, string> = {
   "sidebar.events": "Eventos",
   "sidebar.conversation": "Conversa",
 
+  // Completed Agents Shelf
+  "completedShelf.title": "Concluídos",
+  "completedShelf.dismissHint": "Clique para dispensar",
+
   // Event Log
   "eventLog.title": "Log de Eventos",
   "eventLog.events": "eventos",

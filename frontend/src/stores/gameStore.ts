@@ -65,7 +65,14 @@ import {
 } from "./slices/whiteboardSlice";
 import { createReplaySlice, initialReplayState } from "./slices/replaySlice";
 import { createDebugSlice, initialDebugState } from "./slices/debugSlice";
+import {
+  createCompletedAgentsSlice,
+  initialCompletedAgentsState,
+  type CompletedAgentEntry,
+} from "./slices/completedAgentsSlice";
 import { createEmptyBubbleState, initialBossState } from "./slices/shared";
+
+export type { CompletedAgentEntry } from "./slices/completedAgentsSlice";
 
 // ============================================================================
 // STORE INTERFACE (the single public contract; impls come from the slices)
@@ -224,6 +231,12 @@ export interface GameStore {
   ) => void;
   loadPersistedDebugSettings: () => void;
 
+  // ========== Completed Agents (trophy shelf) ==========
+  completedAgents: CompletedAgentEntry[];
+  addCompletedAgent: (entry: CompletedAgentEntry) => void;
+  dismissCompletedAgent: (agentId: string) => void;
+  clearCompletedAgents: () => void;
+
   // ========== Top-level Actions ==========
   reset: () => void;
   resetForReplay: () => void;
@@ -244,6 +257,7 @@ const initialState = {
   ...initialWhiteboardState,
   ...initialReplayState,
   ...initialDebugState,
+  ...initialCompletedAgentsState,
 };
 
 // ============================================================================
@@ -264,6 +278,7 @@ export const useGameStore = create<GameStore>()(
     ...createWhiteboardSlice(set, get, api),
     ...createReplaySlice(set, get, api),
     ...createDebugSlice(set, get, api),
+    ...createCompletedAgentsSlice(set, get, api),
 
     // ========================================================================
     // TOP-LEVEL ACTIONS (cross-cutting: reset variants reconcile every slice)

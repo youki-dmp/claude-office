@@ -34,7 +34,7 @@ frontend:			# Start frontend dev server
 build-static frontend-build-static:
 	make -C frontend build-static
 	@echo "Frontend built and copied to backend/static"
-	@echo "Start backend with 'make backend' to serve at http://localhost:8000"
+	@echo "Start backend with 'make backend' to serve at http://localhost:8971"
 
 simulate:			# Run event simulation
 	uv run python scripts/simulate_events.py

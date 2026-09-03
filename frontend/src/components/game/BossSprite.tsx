@@ -66,7 +66,7 @@ const _STATE_COLORS: Record<BossState, number> = {
 
 function drawBossBody(g: Graphics, _state: BossState): void {
   g.clear();
-  // Boss body (black capsule - state color changes were distracting)
+  // Boss body (white capsule - state color changes were distracting)
   // Inset by half stroke width so total size matches BOSS_WIDTH × BOSS_HEIGHT
   const innerWidth = BOSS_WIDTH - STROKE_WIDTH;
   const innerHeight = BOSS_HEIGHT - STROKE_WIDTH;
@@ -78,8 +78,8 @@ function drawBossBody(g: Graphics, _state: BossState): void {
     innerHeight,
     bossRadius,
   );
-  g.fill(0x1f2937); // Always dark gray
-  g.stroke({ width: STROKE_WIDTH, color: 0xffffff });
+  g.fill(0xffffff); // Always white
+  g.stroke({ width: STROKE_WIDTH, color: 0x1f2937 });
 }
 
 function drawFallbackChair(g: Graphics): void {
@@ -235,7 +235,7 @@ function BossSpriteComponent({
       bodyHalfWidth: (BOSS_WIDTH - STROKE_WIDTH) / 2,
       startY: 0,
       endY: 32,
-      handColor: 0x1f2937,
+      handColor: 0xffffff,
     }),
     [],
   );

@@ -656,7 +656,24 @@ class AgentMachineService implements AnimationListener {
       this.defer(() => this.notifyBossAvailable());
     }
 
-    useGameStore.getState().removeAgent(agentId);
+    const store = useGameStore.getState();
+
+    // Snapshot the agent onto the "trophy shelf" before it's deleted from the
+    // live map, so a finished subagent stays visible (outside the office
+    // grid) until the user acknowledges it, instead of just vanishing.
+    const agent = store.agents.get(agentId);
+    if (agent) {
+      store.addCompletedAgent({
+        id: agent.id,
+        name: agent.name,
+        color: agent.color,
+        number: agent.number,
+        characterType: agent.characterType,
+        completedAt: Date.now(),
+      });
+    }
+
+    store.removeAgent(agentId);
   }
 }
 
