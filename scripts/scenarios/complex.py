@@ -4,7 +4,7 @@ Exercises the full multi-agent workflow from the original simulate_events.py:
 1. Session starts at 35% context so compaction triggers during agent work.
 2. Boss creates a todo list and reads the PRD.
 3. Boss makes several file edits to seed the heat-map.
-4. Four subagents spawn in staggered fashion and work concurrently.
+4. Up to eight subagents spawn in staggered fashion and work concurrently.
 5. Boss updates todos while agents work.
 6. Context compaction fires automatically when threshold is reached.
 7. Background task notifications arrive after agents finish.
@@ -374,8 +374,8 @@ def run(ctx: SimulationContext) -> None:
         )
         time.sleep(0.3)
 
-    # Spawn four agents with staggered starts
-    num_agents = 4
+    # Spawn agents with staggered starts (up to all 8 desks; real sessions rarely fill every seat)
+    num_agents = 8
     ctx.log(f"[complex] Spawning {num_agents} agents...")
     available_names = random.sample(AGENT_NAMES, min(num_agents, len(AGENT_NAMES)))
     available_tasks = random.sample(TASK_DESCRIPTIONS, min(num_agents, len(TASK_DESCRIPTIONS)))

@@ -10,7 +10,7 @@
 import { memo, useMemo, useState, useCallback, type ReactNode } from "react";
 import { useTick } from "@pixi/react";
 import { Graphics, TextStyle, Texture } from "pixi.js";
-import type { Position, BubbleContent } from "@/types";
+import type { Position, BubbleContent, AgentState } from "@/types";
 import type { AgentPhase } from "@/stores/gameStore";
 import { useAttentionStore } from "@/stores/attentionStore";
 import { usePreferencesStore } from "@/stores/preferencesStore";
@@ -19,6 +19,7 @@ import { ICON_MAP } from "./shared/iconMap";
 import { drawBubble, drawIconBadge } from "./shared/drawBubble";
 import { drawRightArm, drawLeftArm } from "./shared/drawArm";
 import { truncateBubbleText } from "@/utils/bubbleText";
+import { STATE_BADGE } from "./shared/stateColors";
 
 // ============================================================================
 // TYPES
@@ -346,9 +347,27 @@ export const AgentHeadset = memo(AgentHeadsetComponent);
 export interface AgentLabelProps {
   name: string;
   position: Position;
+  state?: AgentState;
 }
 
-function AgentLabelComponent({ name, position }: AgentLabelProps): ReactNode {
+function AgentLabelComponent({
+  name,
+  position,
+  state,
+}: AgentLabelProps): ReactNode {
+  const badge = state ? STATE_BADGE[state] : null;
+
+  const drawBadge = useMemo(
+    () => (g: Graphics) => {
+      g.clear();
+      if (!badge) return;
+      const w = badge.label.length * 11 + 14;
+      g.roundRect(-w / 2, 0, w, 20, 6);
+      g.fill({ color: badge.color, alpha: 0.92 });
+    },
+    [badge],
+  );
+
   return (
     <pixiContainer x={position.x} y={position.y - 70} scale={0.5}>
       <pixiText
@@ -363,6 +382,25 @@ function AgentLabelComponent({ name, position }: AgentLabelProps): ReactNode {
         }}
         resolution={2}
       />
+      {/* State badge - small, below name, doesn't recolor the body */}
+      {badge && (
+        <pixiContainer y={14}>
+          <pixiGraphics draw={drawBadge} />
+          <pixiContainer y={10}>
+            <pixiText
+              text={badge.label}
+              anchor={0.5}
+              style={{
+                fontFamily: "monospace",
+                fontSize: 15,
+                fill: 0xffffff,
+                fontWeight: "bold",
+              }}
+              resolution={2}
+            />
+          </pixiContainer>
+        </pixiContainer>
+      )}
     </pixiContainer>
   );
 }
